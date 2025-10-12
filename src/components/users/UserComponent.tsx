@@ -26,7 +26,7 @@ const UserComponent: React.FC = () => {
     const dispath = useDispatch<AppDispatch>()
     // const [listAllUser, setListAllUser] = useState<UsersState | null>(null);
     const [currentPage, setCurrentPage] = useState(1)
-    const [currentLimit, setCurentLimit] = useState(2)
+    const [currentLimit, setCurentLimit] = useState(10)
     const [totalPage, setTotalPage] = useState(0)
     const [isVistUserModal, setisVistUserModal] = useState(false)
     const listUser = useSelector((state: RootState) => state.user.listUser || null)

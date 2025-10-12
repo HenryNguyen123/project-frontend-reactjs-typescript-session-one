@@ -1,4 +1,5 @@
 
+import ToastifyComponent from './components/toast/ToastifyComponent'
 import AppRouter from './router/AppRouter'
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
           </div>
         </div>
       </div>
-   
+
+      <ToastifyComponent/>
     </>
   )
 }
