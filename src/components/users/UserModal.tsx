@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 
 interface UserModalProps {
   showModal: boolean,
-  onClose?: () => void
+  onClose?: () => void,
+  onSuccess?: () => void
 }
 
 interface checkIsValidType{
@@ -22,7 +23,7 @@ interface checkIsValidType{
     isAge: boolean,
 }
 
-const UserModal: React.FC<UserModalProps>  = ({showModal, onClose}) => {
+const UserModal: React.FC<UserModalProps>  = ({showModal, onClose, onSuccess}) => {
 
     const [show, setShow] = useState(showModal);
 
@@ -140,6 +141,7 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, onClose}) => {
             const response = await createAddNewUser(firstName, lastName, email, userName, password, avatar, age)
             if (response && response.data.EC == 0){
                 toast.success(response.data.EM)
+                if(onSuccess) onSuccess()
             } else {
                 toast.error(response.data.EM)
             }

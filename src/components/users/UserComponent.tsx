@@ -29,25 +29,14 @@ const UserComponent: React.FC = () => {
     const [currentLimit, setCurentLimit] = useState(10)
     const [totalPage, setTotalPage] = useState(0)
     const [isVistUserModal, setisVistUserModal] = useState(false)
+    
     const listUser = useSelector((state: RootState) => state.user.listUser || null)
     const isLoading = useSelector((state: RootState) => state.user.isLoading)
     const isError = useSelector((state: RootState) => state.user.isError) 
+
     const fetchListUsers = async () => {
         await dispath(fetchAllUsers({limit: currentLimit, page: currentPage}))
         console.log('list user, ', listUser)
-        // setListAllUser(listUser.users)
-        // if (response && response.EC ===0) {
-        //     // check count user into page (pagination)
-        //     if (response.DT.users.length == 0 && currentPage > 1) { 
-        //         setCurrentPage(prev => prev - 1)
-        //         return
-        //     }
-        //     setListUser(response.DT.users)
-        //     setTotalPage(response.DT.totalPages)
-
-        // } else {
-        //     console.log('get data user faill')
-        // }
     }
     const handleCreateNewUser = () => {
         setisVistUserModal(true)
@@ -62,22 +51,26 @@ const UserComponent: React.FC = () => {
     }, [currentPage, currentLimit])
 
     useEffect(() => {
-    if (listUser) {
-      setTotalPage(listUser.totalPages)
-      // nếu trang hiện tại rỗng thì lùi lại 1 trang
-      if (listUser.users.length === 0 && currentPage > 1) {
-        setCurrentPage(prev => prev - 1)
-      }
-    }
+        if (listUser) {
+        setTotalPage(listUser.totalPages)
+        // nếu trang hiện tại rỗng thì lùi lại 1 trang
+        if (listUser.users.length === 0 && currentPage > 1) {
+            setCurrentPage(prev => prev - 1)
+        }
+        }
 
     }, [listUser])
 
-  if (!isLoading && isError ) {
-    return <div>somting wrongs. Please try again</div>
-  }
-  if (isLoading && !isError ) {
-    return <div>sLoading data ...</div>
-  }
+    if (!isLoading && isError ) {
+        return <div>somting wrongs. Please try again</div>
+    }
+    if (isLoading && !isError ) {
+        return <div>sLoading data ...</div>
+    }
+
+    const handleCheckUserCreated = () => {
+        fetchListUsers()
+    }
 
     return(
         <>
@@ -157,6 +150,7 @@ const UserComponent: React.FC = () => {
                 <UserModal 
                     showModal = {isVistUserModal}
                     onClose = {() => setisVistUserModal(false)}
+                    onSuccess = {handleCheckUserCreated}
                 
                 />
             </div>
