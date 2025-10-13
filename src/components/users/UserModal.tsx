@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './modalUser.scss'
-import {createAddNewUser} from '../../services/userService'
+// import {createAddNewUser} from '../../services/userService'
 import { toast } from "react-toastify";
-
+import type {RootState, AppDispatch} from '../../redux/store/store'
+import { useDispatch, useSelector } from "react-redux";
+import {createAddNewUser} from '../../redux/slices/createUserSlice'
 
 interface UserModalProps {
   showModal: boolean,
+  titleModal: string,
   onClose?: () => void,
   onSuccess?: () => void
 }
@@ -23,9 +26,15 @@ interface checkIsValidType{
     isAge: boolean,
 }
 
-const UserModal: React.FC<UserModalProps>  = ({showModal, onClose, onSuccess}) => {
+const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, onClose, onSuccess}) => {
+    const dispath = useDispatch<AppDispatch>()
 
+    const createUser = useSelector((state: RootState) => state.createUser.user || null)
+    const isLoadingCreate = useSelector((state: RootState) => state.createUser.isLoading)
+    const isErrorCreate = useSelector((state: RootState) => state.createUser.isError) 
+    
     const [show, setShow] = useState(showModal);
+    const [calltitle, setCallTitle] = useState(titleModal)
 
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
@@ -51,7 +60,9 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, onClose, onSuccess}) =
 
     useEffect(() => {
         setShow(showModal)
-    }, [showModal])
+        if(titleModal == "CREATE") setCallTitle("Add New User")
+        if(titleModal == "EDIT") setCallTitle("Edit User")
+    }, [showModal, titleModal])
 
     const handleClose = () => {
         setShow(false);
@@ -135,29 +146,31 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, onClose, onSuccess}) =
         return true
     }
 
+    const handleCloseModal = () => {
+        setShow(false);
+        if (onClose) onClose();
+    };
     const handleCreateUser = async () => {
         const checkResValid = handleCheckValid()
         if(checkResValid){
-            const response = await createAddNewUser(firstName, lastName, email, userName, password, avatar, age)
-            if (response && response.data.EC == 0){
-                toast.success(response.data.EM)
-                if(onSuccess) onSuccess()
-            } else {
-                toast.error(response.data.EM)
-            }
-            
-            setShow(false);
-            if (onClose)  onClose()
-            return
+            await dispath(createAddNewUser({firstName, lastName, email, userName, password, avatar, age})) 
+        }
+        if (createUser && !isLoadingCreate && !isErrorCreate) {
+            toast.success("Create add new user successfully!")
+            if(onSuccess) onSuccess()
+            handleCloseModal()
         }
     }
+
 
     return (
         <>
             <div className="modal-user">
                     <Modal show={show} onHide={handleClose} className="show-modal">
                         <Modal.Header closeButton>
-                        <Modal.Title className="title-modal-user"><span>Add New User</span></Modal.Title>
+                            <Modal.Title className="title-modal-user">
+                                <span>{calltitle}</span>
+                            </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div className="content-body row">
@@ -193,13 +206,13 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, onClose, onSuccess}) =
                                     <label htmlFor="">avatar</label>
                                     <input type="file" id="age" accept="image/*" onChange={handleOnChangeAvatar}   className='form-control'  />
                                 </div>
-                                {/* {
+                                {
                                     avatar && (
                                         <div className="col-12 col-sm-6 form-group">
                                             <img src={URL.createObjectURL(avatar)} alt="" width='80px' height='80px' />
                                         </div>        
                                     )
-                                } */}
+                                }
                             </div>
 
                         </Modal.Body>

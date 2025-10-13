@@ -13,11 +13,7 @@ interface userData {
 interface UserResponse {
   EM: string
   EC: number
-  DT: {
-    totalRows: number
-    totalPages: number
-    users: userData[]
-  }
+  DT: {users: userData[]}
 }
 
 export const createAddNewUser = async (firstName: string, lastName: string, email: string, userName: string, password: string, avatar?: File | null, age?: number | string) => {

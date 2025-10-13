@@ -5,6 +5,7 @@ import { fetchAllUsers } from "../../redux/slices/userSlice"
 import ReactPaginate from "react-paginate"
 import './userCss.scss'
 import UserModal from "./UserModal"
+
 export interface User {
   id: number,
   email: string,
@@ -28,7 +29,8 @@ const UserComponent: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [currentLimit, setCurentLimit] = useState(10)
     const [totalPage, setTotalPage] = useState(0)
-    const [isVistUserModal, setisVistUserModal] = useState(false)
+    const [isVistUserModal, setisVistUserModal] = useState<boolean>(false)
+    const [titleModal, setTitleModal] = useState<string>("")
     
     const listUser = useSelector((state: RootState) => state.user.listUser || null)
     const isLoading = useSelector((state: RootState) => state.user.isLoading)
@@ -39,9 +41,16 @@ const UserComponent: React.FC = () => {
         console.log('list user, ', listUser)
     }
     const handleCreateNewUser = () => {
+        setTitleModal('CREATE')
         setisVistUserModal(true)
     }
 
+    const handleEditUser = (id: number) => {
+        
+        setTitleModal('EDIT')
+        setisVistUserModal(true)
+    }
+    
     const handlePageClick = (e: { selected: number }) => {
         setCurrentPage(e.selected + 1)
     }
@@ -106,7 +115,7 @@ const UserComponent: React.FC = () => {
                                         <td>{value.email}</td>
                                         <td>{value.age}</td>
                                         <td>
-                                            <button type="button" className="btn btn-warning mx-1">Eidt</button>
+                                            <button type="button" className="btn btn-warning mx-1" onClick={() => handleEditUser(value.id)}>Eidt</button>
                                             <button type="button" className="btn btn-danger">Delete</button>
                                         </td>
                                     </tr>
@@ -149,6 +158,7 @@ const UserComponent: React.FC = () => {
                 {/* show user model */}
                 <UserModal 
                     showModal = {isVistUserModal}
+                    titleModal = {titleModal}
                     onClose = {() => setisVistUserModal(false)}
                     onSuccess = {handleCheckUserCreated}
                 
