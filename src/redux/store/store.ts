@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '../slices/countSlice'
 import userReducer from '../slices/userSlice'
 import createUserReducer from '../slices/createUserSlice'
+import deleteUserReducer from '../slices/deleteUserSlice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     user: userReducer,
     createUser: createUserReducer,
+    deleteUser: deleteUserReducer,
   },
 })
 

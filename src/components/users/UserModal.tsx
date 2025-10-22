@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './modalUser.scss'
-// import {createAddNewUser} from '../../services/userService'
 import { toast } from "react-toastify";
 import type {RootState, AppDispatch} from '../../redux/store/store'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import {createAddNewUser} from '../../redux/slices/createUserSlice'
 
 interface UserModalProps {
@@ -150,15 +149,34 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, onClose, o
         setShow(false);
         if (onClose) onClose();
     };
+    // const handleCreateUser = async () => {
+    //     const checkResValid = handleCheckValid()
+    //     if(checkResValid){
+    //         await dispath(createAddNewUser({firstName, lastName, email, userName, password, avatar, age})) 
+            
+    //     }
+    //     if (checkResValid && createUser && !isLoadingCreate && !isErrorCreate) {
+    //         toast.success("Create add new user successfully!")
+    //         if(onSuccess) onSuccess()
+    //         handleCloseModal()
+    //     }
+    // }
     const handleCreateUser = async () => {
         const checkResValid = handleCheckValid()
-        if(checkResValid){
+        if(!checkResValid) return;
+
+        try {
+            console.log("avtar: ", avatar)
             await dispath(createAddNewUser({firstName, lastName, email, userName, password, avatar, age})) 
-        }
-        if (createUser && !isLoadingCreate && !isErrorCreate) {
             toast.success("Create add new user successfully!")
-            if(onSuccess) onSuccess()
-            handleCloseModal()
+            if(onSuccess) onSuccess();
+            handleCloseModal();
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(`Something went wrong: ${error.message}`);
+            } else {
+                toast.error("Something went wrong when creating user.");
+            }
         }
     }
 
@@ -204,7 +222,7 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, onClose, o
                                 </div>
                                 <div className="col-12 col-sm-6 form-group">
                                     <label htmlFor="">avatar</label>
-                                    <input type="file" id="age" accept="image/*" onChange={handleOnChangeAvatar}   className='form-control'  />
+                                    <input type="file" id="image" accept="image/*" onChange={handleOnChangeAvatar}   className='form-control'  />
                                 </div>
                                 {
                                     avatar && (

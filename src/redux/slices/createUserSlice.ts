@@ -38,10 +38,7 @@ export const createAddNewUser = createAsyncThunk<UserResponse, UserData>(
     formData.append('password', data.password)
     if (data.age) formData.append('age', String(data.age))
     if (data.avatar) formData.append('avatar', data.avatar)
-    const response =  await axios.post<UserResponse>(import.meta.env.VITE_Create_USER_URL,formData, {
-                                                        headers: { "Content-Type": "application/json" }
-                                                    })
-    // console.log('reudx user, ', response.data)
+    const response =  await axios.post<UserResponse>(import.meta.env.VITE_Create_USER_URL,formData)
     return response.data
   }
 )

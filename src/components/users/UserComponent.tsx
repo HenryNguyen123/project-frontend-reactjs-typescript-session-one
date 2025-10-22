@@ -5,6 +5,8 @@ import { fetchAllUsers } from "../../redux/slices/userSlice"
 import ReactPaginate from "react-paginate"
 import './userCss.scss'
 import UserModal from "./UserModal"
+import { deleteUserById } from '../../redux/slices/deleteUserSlice'
+import { toast } from "react-toastify"
 
 export interface User {
   id: number,
@@ -32,10 +34,16 @@ const UserComponent: React.FC = () => {
     const [isVistUserModal, setisVistUserModal] = useState<boolean>(false)
     const [titleModal, setTitleModal] = useState<string>("")
     
+    // call list all user
     const listUser = useSelector((state: RootState) => state.user.listUser || null)
     const isLoading = useSelector((state: RootState) => state.user.isLoading)
     const isError = useSelector((state: RootState) => state.user.isError) 
-
+    
+    // call delete user by id
+    const isDeleteEC = useSelector((state: RootState) => state.deleteUser.isEC)
+    const isDeleteLoading = useSelector((state: RootState) => state.deleteUser.isLoading)
+    const isDeleteError = useSelector((state: RootState) => state.deleteUser.isError)
+    
     const fetchListUsers = async () => {
         await dispath(fetchAllUsers({limit: currentLimit, page: currentPage}))
         console.log('list user, ', listUser)
@@ -68,7 +76,16 @@ const UserComponent: React.FC = () => {
         }
         }
 
-    }, [listUser])
+        // if (!isDeleteLoading && isDeleteError ) {
+        //     toast.error("Please try again")
+        // }
+        // if (isDeleteLoading && !isDeleteError ) {
+        //     toast.error("Loading data ...")
+        // }
+        // if(isDeleteEC == 1) {
+        //     toast.success("Delete successfuly!")
+        // }
+    }, [listUser, isDeleteLoading, isDeleteError, isDeleteEC])
 
     if (!isLoading && isError ) {
         return <div>somting wrongs. Please try again</div>
@@ -80,6 +97,18 @@ const UserComponent: React.FC = () => {
     const handleCheckUserCreated = () => {
         fetchListUsers()
     }
+
+    
+    //**************************** */
+    // handle delete user
+    const handleDeleteuser = async(id: number) =>{
+        const data = {id}
+        await dispath(deleteUserById(data))
+        await fetchListUsers()
+    }
+
+    
+
 
     return(
         <>
@@ -116,7 +145,7 @@ const UserComponent: React.FC = () => {
                                         <td>{value.age}</td>
                                         <td>
                                             <button type="button" className="btn btn-warning mx-1" onClick={() => handleEditUser(value.id)}>Eidt</button>
-                                            <button type="button" className="btn btn-danger">Delete</button>
+                                            <button type="button" className="btn btn-danger" onClick={() => handleDeleteuser(value.id)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
