@@ -6,10 +6,23 @@ import { toast } from "react-toastify";
 import type {RootState, AppDispatch} from '../../redux/store/store'
 import { useDispatch, useSelector} from "react-redux";
 import {createAddNewUser} from '../../redux/slices/createUserSlice'
+import {findUserById} from '../../redux/slices/userFindByIdSlice'
+
+export interface User {
+  id: number,
+  email: string,
+  userName: string,
+  firstName: string,
+  lastName: string,
+  avatar: string,
+  age: number,
+
+}
 
 interface UserModalProps {
   showModal: boolean,
   titleModal: string,
+  selectedUserId: number | null,
   onClose?: () => void,
   onSuccess?: () => void
 }
@@ -25,12 +38,18 @@ interface checkIsValidType{
     isAge: boolean,
 }
 
-const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, onClose, onSuccess}) => {
+const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, selectedUserId, onClose, onSuccess}) => {
     const dispath = useDispatch<AppDispatch>()
 
-    const createUser = useSelector((state: RootState) => state.createUser.user || null)
-    const isLoadingCreate = useSelector((state: RootState) => state.createUser.isLoading)
-    const isErrorCreate = useSelector((state: RootState) => state.createUser.isError) 
+    //create user
+    // const createUser = useSelector((state: RootState) => state.createUser.user || null)
+    // const isLoadingCreate = useSelector((state: RootState) => state.createUser.isLoading)
+    // const isErrorCreate = useSelector((state: RootState) => state.createUser.isError) 
+    
+    //find user by id
+    const getUser = useSelector((state: RootState) => state.getUserById.getUser || null)
+    // const isLoadingFindId = useSelector((state: RootState) => state.getUserById.isLoading)
+    // const isErrorFindId = useSelector((state: RootState) => state.getUserById.isError) 
     
     const [show, setShow] = useState(showModal);
     const [calltitle, setCallTitle] = useState(titleModal)
@@ -60,8 +79,21 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, onClose, o
     useEffect(() => {
         setShow(showModal)
         if(titleModal == "CREATE") setCallTitle("Add New User")
-        if(titleModal == "EDIT") setCallTitle("Edit User")
-    }, [showModal, titleModal])
+        if(titleModal == "EDIT") {
+            setCallTitle("Edit User")
+            handleFinduserById()
+        }
+    }, [showModal, titleModal, selectedUserId])
+
+    useEffect(() => {
+        if (getUser && titleModal === "EDIT") {
+            setUserName(getUser.userName || "");
+            setEmail(getUser.email || "");
+            setFirstName(getUser.firstName || "");
+            setLastName(getUser.lastName || "");
+            setAge(getUser.age || "");
+        }
+    }, [getUser, titleModal]);
 
     const handleClose = () => {
         setShow(false);
@@ -180,6 +212,20 @@ const UserModal: React.FC<UserModalProps>  = ({showModal, titleModal, onClose, o
         }
     }
 
+    // function call user find by id
+    const handleFinduserById = async () => {
+        try {
+            if (titleModal == "EDIT" && selectedUserId) {
+                await dispath(findUserById({id: selectedUserId}))
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                toast.error(`Something went wrong: ${error.message}`);
+            } else {
+                toast.error("Something went wrong when creating user.");
+            }
+        }
+    }
 
     return (
         <>

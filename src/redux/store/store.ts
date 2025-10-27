@@ -3,6 +3,7 @@ import counterReducer from '../slices/countSlice'
 import userReducer from '../slices/userSlice'
 import createUserReducer from '../slices/createUserSlice'
 import deleteUserReducer from '../slices/deleteUserSlice'
+import findUserByIdReduce from '../slices/userFindByIdSlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     user: userReducer,
     createUser: createUserReducer,
     deleteUser: deleteUserReducer,
+    getUserById: findUserByIdReduce,
   },
 })
 

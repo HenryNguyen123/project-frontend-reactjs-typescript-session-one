@@ -7,6 +7,7 @@ import './userCss.scss'
 import UserModal from "./UserModal"
 import { deleteUserById } from '../../redux/slices/deleteUserSlice'
 import { toast } from "react-toastify"
+import ConfirmUser from "./ConfirmUser"
 
 export interface User {
   id: number,
@@ -33,16 +34,26 @@ const UserComponent: React.FC = () => {
     const [totalPage, setTotalPage] = useState(0)
     const [isVistUserModal, setisVistUserModal] = useState<boolean>(false)
     const [titleModal, setTitleModal] = useState<string>("")
+
+    const [titleConfirm, setTitleConfirm] = useState<string>('')
+    const [isVisitConfirmUser, setIsVisitConfirmUser] = useState<boolean>(false)
     
     // call list all user
     const listUser = useSelector((state: RootState) => state.user.listUser || null)
     const isLoading = useSelector((state: RootState) => state.user.isLoading)
     const isError = useSelector((state: RootState) => state.user.isError) 
+
+    const [selectedUserId, setSelectedUserId] = useState<number | null>(null)
+    const [selectedUserName, setSelectedUserName] = useState<string>('')
     
     // call delete user by id
     const isDeleteEC = useSelector((state: RootState) => state.deleteUser.isEC)
     const isDeleteLoading = useSelector((state: RootState) => state.deleteUser.isLoading)
     const isDeleteError = useSelector((state: RootState) => state.deleteUser.isError)
+    // const [isListenDelete, setIsListenDelete] = useState<boolean>(false) 
+
+    // call edit user
+
     
     const fetchListUsers = async () => {
         await dispath(fetchAllUsers({limit: currentLimit, page: currentPage}))
@@ -54,7 +65,7 @@ const UserComponent: React.FC = () => {
     }
 
     const handleEditUser = (id: number) => {
-        
+        setSelectedUserId(id)
         setTitleModal('EDIT')
         setisVistUserModal(true)
     }
@@ -94,20 +105,27 @@ const UserComponent: React.FC = () => {
         return <div>sLoading data ...</div>
     }
 
-    const handleCheckUserCreated = () => {
+    const handleCheckUserCreated = () => { 
         fetchListUsers()
     }
 
     
     //**************************** */
     // handle delete user
-    const handleDeleteuser = async(id: number) =>{
-        const data = {id}
-        await dispath(deleteUserById(data))
-        await fetchListUsers()
+    const handleDeleteuser = (id: number, username: string) =>{
+        setSelectedUserId(id)
+        setSelectedUserName(username)
+        setIsVisitConfirmUser(true)
+        setTitleConfirm("DELETE") 
     }
 
-    
+    const handleSuccessDelete = async ()  =>{
+        if (selectedUserId == null ) return
+        const data = {id: selectedUserId}
+        await dispath(deleteUserById(data))
+        await fetchListUsers()
+        toast.success(`Delete UserName: ${selectedUserName} successfuly!`)
+    }
 
 
     return(
@@ -145,7 +163,7 @@ const UserComponent: React.FC = () => {
                                         <td>{value.age}</td>
                                         <td>
                                             <button type="button" className="btn btn-warning mx-1" onClick={() => handleEditUser(value.id)}>Eidt</button>
-                                            <button type="button" className="btn btn-danger" onClick={() => handleDeleteuser(value.id)}>Delete</button>
+                                            <button type="button" className="btn btn-danger" onClick={() => handleDeleteuser(value.id, value.userName)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
@@ -188,9 +206,18 @@ const UserComponent: React.FC = () => {
                 <UserModal 
                     showModal = {isVistUserModal}
                     titleModal = {titleModal}
+                    selectedUserId = {selectedUserId}
                     onClose = {() => setisVistUserModal(false)}
                     onSuccess = {handleCheckUserCreated}
-                
+                />
+
+                {/* show confirm user */}
+                <ConfirmUser 
+                    showModal = {isVisitConfirmUser}
+                    titleModal = {titleConfirm}
+                    username = {selectedUserName}
+                    onClose = {() => setIsVisitConfirmUser(false)}
+                    onSuccess = {handleSuccessDelete}
                 />
             </div>
 
