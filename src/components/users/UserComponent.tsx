@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import type {RootState, AppDispatch} from '../../redux/store/store'
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllUsers } from "../../redux/slices/userSlice"
+import { fetchAllUsers } from "../../redux/slices/users/userSlice"
 import ReactPaginate from "react-paginate"
 import './userCss.scss'
 import UserModal from "./UserModal"
-import { deleteUserById } from '../../redux/slices/deleteUserSlice'
+import { deleteUserById } from '../../redux/slices/users/deleteUserSlice'
 import { toast } from "react-toastify"
 import ConfirmUser from "./ConfirmUser"
 
@@ -80,22 +80,12 @@ const UserComponent: React.FC = () => {
 
     useEffect(() => {
         if (listUser) {
-        setTotalPage(listUser.totalPages)
-        // nếu trang hiện tại rỗng thì lùi lại 1 trang
-        if (listUser.users.length === 0 && currentPage > 1) {
-            setCurrentPage(prev => prev - 1)
+            setTotalPage(listUser.totalPages)
+            // nếu trang hiện tại rỗng thì lùi lại 1 trang
+            if (listUser.users.length === 0 && currentPage > 1) {
+                setCurrentPage(prev => prev - 1)
+            }
         }
-        }
-
-        // if (!isDeleteLoading && isDeleteError ) {
-        //     toast.error("Please try again")
-        // }
-        // if (isDeleteLoading && !isDeleteError ) {
-        //     toast.error("Loading data ...")
-        // }
-        // if(isDeleteEC == 1) {
-        //     toast.success("Delete successfuly!")
-        // }
     }, [listUser, isDeleteLoading, isDeleteError, isDeleteEC])
 
     if (!isLoading && isError ) {

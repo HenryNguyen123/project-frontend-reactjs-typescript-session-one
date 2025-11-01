@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../slices/countSlice'
-import userReducer from '../slices/userSlice'
-import createUserReducer from '../slices/createUserSlice'
-import deleteUserReducer from '../slices/deleteUserSlice'
-import findUserByIdReduce from '../slices/userFindByIdSlice'
+import counterReducer from '../slices/users/countSlice'
+import userReducer from '../slices/users/userSlice'
+import createUserReducer from '../slices/users/createUserSlice'
+import deleteUserReducer from '../slices/users/deleteUserSlice'
+import findUserByIdReduce from '../slices/users/userFindByIdSlice'
+import updateUserByIdReduce from '../slices/users/updateUserSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     createUser: createUserReducer,
     deleteUser: deleteUserReducer,
     getUserById: findUserByIdReduce,
+    updateUserById: updateUserByIdReduce,
   },
 })
 

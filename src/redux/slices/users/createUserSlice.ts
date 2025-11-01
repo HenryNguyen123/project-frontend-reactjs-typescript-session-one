@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import axios from '../../setup/axios'
+import axios from '../../../setup/axios'
 
 interface UserData {
   email: string,
@@ -20,9 +20,9 @@ interface UserResponse {
 
 
 export interface UsersState {
+  data: UserResponse| null
   user: {user: UserData[]} | null
-  
-  isLoading: boolean
+    isLoading: boolean
   isError: boolean
 }
 
@@ -44,6 +44,7 @@ export const createAddNewUser = createAsyncThunk<UserResponse, UserData>(
 )
 
 const initialState: UsersState = {
+  data: null,
   user:  null,
   isLoading: false,
   isError: false
@@ -64,6 +65,7 @@ export const createUserSlice = createSlice({
     })
     .addCase(createAddNewUser.fulfilled, (state, action: PayloadAction<UserResponse>) => {
       console.log('payload create user: ', action.payload)
+        state.data = action.payload ? action.payload : null
         state.user = action.payload?.DT ? action.payload.DT : null
         state.isLoading = false
         state.isError = false

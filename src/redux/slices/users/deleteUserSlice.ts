@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import axios from '../../setup/axios'
+import axios from '../../../setup/axios'
 
 interface data {
     id: number

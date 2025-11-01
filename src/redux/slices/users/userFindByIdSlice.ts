@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import axios from '../../setup/axios'
+import axios from '../../../setup/axios'
 
 export interface User {
   id: number,
@@ -28,7 +28,7 @@ export interface UsersState {
 export const findUserById = createAsyncThunk<UserResponse, {id: number}>(
   'users/findUserById',
   async ({id}) => {
-    const response = await axios.get<UserResponse>(import.meta.env.VITE_READ_Find_User_By_Id+ `${id}`)
+    const response = await axios.get<UserResponse>(import.meta.env.VITE_READ_Find_User_By_Id + `${id}`)
     // console.log('reudx user, ', response.data)
     return response.data
   }
