@@ -40,6 +40,7 @@ export interface UsersState {
 export const fetchAllUsers = createAsyncThunk<UserResponse, {limit: number, page: number}>(
   'users/fetchAllUsers',
   async ({limit, page}) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
     const response = await axios.get<UserResponse>(import.meta.env.VITE_READ_ALL_USER_URL+ `?limit=${limit}&page=${page}`)
     // console.log('reudx user, ', response.data)
     return response.data

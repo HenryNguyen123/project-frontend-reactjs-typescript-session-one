@@ -8,6 +8,7 @@ import UserModal from "./UserModal"
 import { deleteUserById } from '../../redux/slices/users/deleteUserSlice'
 import { toast } from "react-toastify"
 import ConfirmUser from "./ConfirmUser"
+import WaitDataComponent from "../waitLoading/waitData/WaitDataComponent"
 
 export interface User {
   id: number,
@@ -91,9 +92,9 @@ const UserComponent: React.FC = () => {
     if (!isLoading && isError ) {
         return <div>somting wrongs. Please try again</div>
     }
-    if (isLoading && !isError ) {
-        return <div>sLoading data ...</div>
-    }
+    // if (isLoading && !isError ) {
+    //     return <WaitDataComponent isLoading={isLoading} />
+    // }
 
     const handleCheckUserCreated = () => { 
         fetchListUsers()
@@ -189,6 +190,13 @@ const UserComponent: React.FC = () => {
 
                                 </div>
                             </div>
+                    }
+                    {
+                        isLoading && !isError && (
+                            <div className="wait-loading">
+                                <WaitDataComponent isLoading={isLoading} />
+                            </div>
+                        )
                     }
                 </div>
 

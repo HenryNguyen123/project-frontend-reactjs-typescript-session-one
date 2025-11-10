@@ -1,0 +1,28 @@
+.loading-container{
+    background: linear-gradient(135deg, #f0dff0, #e9d6e9, #B63CF6, #FB00FF);
+    background-size: 300% 300%;
+    animation: gradientShift 10s ease infinite;
+    height: 100vh;
+    .loading-content{
+        .loading-item{
+            display: flex;
+            justify-content: center;
+            div{
+                margin-top: 400px;
+            }
+
+        }
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}

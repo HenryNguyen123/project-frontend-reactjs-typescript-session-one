@@ -9,12 +9,14 @@ export interface UserData {
 
 interface UserState {
     data: UserData | null,
-    isLogin: boolean
+    isLogin: boolean,
+    isLoading: boolean
 }
 
 const initialState: UserState = {
   data: null,
-  isLogin: false
+  isLogin: false,
+  isLoading: true
 }
 
 const AccountSlice = createSlice({
@@ -25,7 +27,7 @@ const AccountSlice = createSlice({
       state.isLogin = true
       if(state.isLogin && action.payload) {
           localStorage.setItem('JWT', JSON.stringify(action.payload));
-          Cookies.set('JWT', JSON.stringify(action.payload), { expires: 7 })
+          Cookies.set('JWT-FE', JSON.stringify(action.payload), { expires: 7 })
       } else {
           localStorage.removeItem('JWT');
       }
@@ -33,17 +35,21 @@ const AccountSlice = createSlice({
     getLogin(state) {
       // state.isLoading = false
       // state.isError = false 
-      const cookie = Cookies.get('JWT')
-      if (cookie) {
+      const cookie = Cookies.get('JWT-FE')
+      const getStorage = localStorage.getItem("JWT")
+      if (cookie && !getStorage || (cookie && getStorage)) {
         console.log(' login by cookie')
         state.data = JSON.parse(cookie)
         state.isLogin = true
+        state.isLoading = false
+        return
       }
-      const getStorage = localStorage.getItem("JWT")
-      if (getStorage) {
+      if (getStorage && !cookie || (cookie && getStorage)) {
         console.log(' login by getStorage')
         state.data = JSON.parse(getStorage)
         state.isLogin = true
+        state.isLoading = false
+        return
       }
     },
   },

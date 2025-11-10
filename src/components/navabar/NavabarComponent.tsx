@@ -10,7 +10,7 @@ const NavabarComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
 
     const isLogin: boolean = useSelector((state: RootState) => state.account.isLogin)
-    const data: object = useSelector((state: RootState) => state.account.data)
+    // const data: object = useSelector((state: RootState) => state.account.data)
 
     const handleClickUser = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault()
