@@ -5,15 +5,26 @@ import createUserReducer from '../slices/users/createUserSlice'
 import deleteUserReducer from '../slices/users/deleteUserSlice'
 import findUserByIdReduce from '../slices/users/userFindByIdSlice'
 import updateUserByIdReduce from '../slices/users/updateUserSlice'
+import loginAuthReduce from '../slices/auth/loginSlice'
+import accountReduce from '../slices/account/userLoginSlice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+
+    // user
     user: userReducer,
     createUser: createUserReducer,
     deleteUser: deleteUserReducer,
     getUserById: findUserByIdReduce,
     updateUserById: updateUserByIdReduce,
+
+    // login
+    login: loginAuthReduce,
+
+    // account
+    account: accountReduce,
+    
   },
 })
 

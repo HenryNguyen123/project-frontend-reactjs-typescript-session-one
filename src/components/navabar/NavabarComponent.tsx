@@ -1,9 +1,16 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import './navabarCss.scss'
+import { useDispatch, useSelector } from "react-redux"
+import type {RootState, AppDispatch} from '../../redux/store/store'
+import {getLogin} from '../../redux/slices/account/userLoginSlice'
 
 const NavabarComponent: React.FC = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
+
+    const isLogin: boolean = useSelector((state: RootState) => state.account.isLogin)
+    const data: object = useSelector((state: RootState) => state.account.data)
 
     const handleClickUser = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault()
@@ -13,6 +20,19 @@ const NavabarComponent: React.FC = () => {
         e.preventDefault()
         navigate('/')
     }
+    const handleClickLogin = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault()
+        navigate('/login')
+    }
+    
+    const handleCallAuthen = async () => {
+        await dispatch(getLogin())
+    }
+
+    useEffect(() => {
+        handleCallAuthen()
+    }, [navigate])
+    
     
     return(
         <>
@@ -32,7 +52,7 @@ const NavabarComponent: React.FC = () => {
                     </li>
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
+                            more
                         </a>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown" >
                         <li><a className="dropdown-item" href="#">Action</a></li>
@@ -41,14 +61,36 @@ const NavabarComponent: React.FC = () => {
                         <li><a className="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                     </li>
-                    <li className="nav-item">
-                    {/* <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> */}
-                    </li>
                 </ul>
                 <form className="d-flex">
                     <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <ul className="navbar-nav mb-2 mb-lg-0">
+                    {
+                        !isLogin && (
+                            <li className="nav-item">
+                                <a className="nav-link" href="/user" onClick={handleClickLogin}>Login</a>
+                            </li>
+                        )
+                    }
+                    {
+                        isLogin && (
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <span>Account</span>
+                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown" >
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr className="dropdown-divider"/></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        )
+                    }
+                </ul>
                 </div>
             </div>
         </nav>

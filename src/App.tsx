@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <div className='container'>
+      <div className=''>
         <div className='appCss'>
           <div>
             <AppRouter/>

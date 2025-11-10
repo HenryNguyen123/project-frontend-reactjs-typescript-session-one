@@ -20,9 +20,9 @@ interface UserResponse {
 
 
 export interface UsersState {
-  data: UserResponse| null
+  data: UserResponse | null
   user: {user: UserData[]} | null
-    isLoading: boolean
+  isLoading: boolean
   isError: boolean
 }
 

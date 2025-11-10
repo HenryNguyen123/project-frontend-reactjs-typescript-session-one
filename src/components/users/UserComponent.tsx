@@ -114,7 +114,7 @@ const UserComponent: React.FC = () => {
         const data = {id: selectedUserId}
         await dispath(deleteUserById(data))
         await fetchListUsers()
-        toast.success(`Delete UserName: ${selectedUserName} successfuly!`)
+        toast.warn(`Delete UserName: ${selectedUserName} successfuly!`)
     }
 
 
