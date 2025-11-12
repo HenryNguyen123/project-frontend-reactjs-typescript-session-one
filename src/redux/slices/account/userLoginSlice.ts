@@ -3,10 +3,15 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie';
 
 export interface UserData {
-    access_token: string,
-    data: object 
+  access_token: string;
+  data: {
+    age: number;
+    avatar: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
+  };
 }
-
 interface UserState {
     data: UserData | null,
     isLogin: boolean,
@@ -33,28 +38,55 @@ const AccountSlice = createSlice({
       }
     },
     getLogin(state) {
-      // state.isLoading = false
-      // state.isError = false 
-      const cookie = Cookies.get('JWT-FE')
-      const getStorage = localStorage.getItem("JWT")
-      if (cookie && !getStorage || (cookie && getStorage)) {
-        console.log(' login by cookie')
-        state.data = JSON.parse(cookie)
-        state.isLogin = true
-        state.isLoading = false
-        return
-      }
-      if (getStorage && !cookie || (cookie && getStorage)) {
-        console.log(' login by getStorage')
-        state.data = JSON.parse(getStorage)
-        state.isLogin = true
-        state.isLoading = false
-        return
+      try {
+        const cookie = Cookies.get('JWT-FE');
+        const cookieServer = Cookies.get('JWT');
+        const getStorage = localStorage.getItem("JWT");
+        console.log('cookie server: ', cookieServer)
+
+        if (cookie) {
+          state.data = JSON.parse(cookie);
+          state.isLogin = true;
+          state.isLoading = false;
+          return;
+        }
+
+        if (getStorage) {
+          state.data = JSON.parse(getStorage);
+          state.isLogin = true;
+          state.isLoading = false;
+          return;
+        }
+
+        state.data = null;
+        state.isLogin = false;
+        state.isLoading = false;
+      } catch (error) {
+        console.error("Error parsing login data:", error);
+        state.data = null;
+        state.isLogin = false;
+        state.isLoading = false;
+
+        Cookies.remove('JWT-FE');
+        localStorage.removeItem('JWT');
       }
     },
+    logoutUser(state) {
+      try {
+        Cookies.remove('JWT-FE')
+        Cookies.remove('JWT')
+        localStorage.removeItem('JWT')
+        state.isLogin = false
+        state.isLoading = false
+        state.data =null
+        console.log('logout success!')
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
 })
 
-export const { setLogin, getLogin } = AccountSlice.actions
+export const { setLogin, getLogin, logoutUser } = AccountSlice.actions
 export default AccountSlice.reducer
 

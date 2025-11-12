@@ -7,6 +7,7 @@ import findUserByIdReduce from '../slices/users/userFindByIdSlice'
 import updateUserByIdReduce from '../slices/users/updateUserSlice'
 import loginAuthReduce from '../slices/auth/loginSlice'
 import accountReduce from '../slices/account/userLoginSlice'
+import logoutAuthReduce from '../slices/auth/logoutSlice'
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,8 @@ export const store = configureStore({
 
     // login
     login: loginAuthReduce,
+    //logout
+    logout: logoutAuthReduce,
 
     // account
     account: accountReduce,

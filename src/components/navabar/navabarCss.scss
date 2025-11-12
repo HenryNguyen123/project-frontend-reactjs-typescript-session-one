@@ -1,8 +1,109 @@
-.navbar {
+.navbar-container {
+    background: linear-gradient(135deg, #d4ebec, #b2b3f8, #d4a0f0, #f8a8fa);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease-in-out infinite;
+
     .container-fluid{
-        .navbar-nav {
-            .dropdown-menu {
+        a{
+
+        }
+        button{
+
+        }
+        #navbarSupportedContent{
+            .navbar-nav {
+                .nav-item_title{
+                    
+                    a{
+                        color: #4b0c6c;
+                        font-weight: 500;
+                        font-size: 1.15rem;
+                    }
+                    &:hover {
+                        scale: 1.05;
+                        border-bottom: 1px solid #9c8b29;
+                        transition: all 0.15s ease;
+                    }
+                } 
+                .dropdown-menu {
+                }
+            }
+            form{
+                .button-search{
+                    border: 1px solid #e7bbff;
+                    background: linear-gradient(135deg, #f4feff, #faeff6, #e7bbff, #fd93ff);
+                    &:hover {
+                        scale: 1.05;
+                        transition: all 0.25s ease;
+                    }
+                }
+            }
+            .account-container{
+                .account-login{
+                    margin-left: 5px;
+                    #login-item{
+                        font-weight: 500;
+                        &:hover {
+                            border-radius: 5px;
+                            box-shadow: 0 2px 5px rgba(206, 10, 10, 0.2);
+                            background: linear-gradient(115deg, #ffcff8, #fac8e7, #e7bbff, #fd93ff);
+                            color: #ec2ea9;
+                            scale: 1.05;
+                            transition: all 0.25s ease;
+                        }
+                    }
+                }
+                .account-content{
+                    a{
+                        img{
+                            margin: 0px 5px;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            &:hover {
+                                scale: 1.05;
+                                transition: all 0.25s ease;
+                            }
+                        }
+                        span{
+                            font-weight: 600;
+                            color: #2e1939;
+                        }
+                        &:hover {
+                            scale: 1.02;
+                            color: #6e2596;
+                            transition: all 0.25s ease;
+                        }
+                    }
+                    .account-content-item{
+                        background: linear-gradient(135deg, #ffffff, #e2e2fd, #f1d6ff, #fd91ff);
+                        li{
+                            a{
+                                color: #75586b;
+                                background: linear-gradient(135deg, #ffffff, #e2e2fd, #f1d6ff, #efa7f0);
+                                font-weight: 500;
+                                cursor: pointer;
+                                &:hover{
+                                    font-weight: 700;
+                                    transition: all 0.15s ease;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
     }
 }

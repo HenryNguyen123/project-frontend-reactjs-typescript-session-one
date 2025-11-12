@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../../setup/axios'
+import type {UserData} from '../../../redux/slices/account/userLoginSlice'
 
 interface LoginData {
     userName: string,
@@ -10,10 +11,7 @@ interface LoginData {
 interface DataResponse{
     EM: string
     EC: number
-    DT: {
-      access_token: string,
-      data: object
-    } | null
+    DT: UserData | null
 }
 
 export interface DataState {
@@ -36,9 +34,8 @@ const initialState: DataState = {
   isError: false
 }
 
-
 export const LoginAuthenSlice = createSlice({
-  name: 'createUser',
+  name: 'login',
   initialState,
   reducers: {
   },

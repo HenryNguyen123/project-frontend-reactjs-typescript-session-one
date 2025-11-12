@@ -7,9 +7,9 @@ import { Outlet } from 'react-router-dom'
 const LayoutComponent: React.FC = () => {
     return (
         <>
+            <HeaderComponent/>
             <div className="container">
                 <div className="mt-3">
-                    <HeaderComponent/>
                     <main>
                         <Outlet/>
                     </main>

@@ -9,7 +9,7 @@ import type {RootState, AppDispatch} from '../../../redux/store/store'
 import { useDispatch, useSelector } from "react-redux";
 import {loginAuthentication} from '../../../redux/slices/auth/loginSlice'
 import {setLogin} from '../../../redux/slices//account/userLoginSlice'
-
+import type {UserData} from '../../../redux/slices/account/userLoginSlice'
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ const LoginComponent: React.FC = () => {
     const [password, setPassword] = useState<string>('')
     const [rememberUser, setRrememberUser] = useState<boolean>(true)
     
-    const loginUser = useSelector((state: RootState) => state.login.data)
+    const loginUser: UserData = useSelector((state: RootState) => state.login.data)
     // const isLoadingUser = useSelector((state: RootState) => state.login.isLoading)
     // const isErrorUser = useSelector((state: RootState) => state.login.isError)
     
