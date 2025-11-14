@@ -22,7 +22,7 @@ export interface UserResponse {
     totalRows: number
     totalPages: number
     users: User[]
-  }
+  } | null
 }
 
 export interface UsersState {
@@ -65,8 +65,8 @@ export const userSlice = createSlice({
         state.isError = false
     })
     .addCase(fetchAllUsers.fulfilled, (state, action: PayloadAction<UserResponse>) => {
-      // console.log('payload: ', action.payload)
-        state.listUser = action.payload?.DT
+      console.log('payload: ', action.payload.DT)
+        state.listUser = action.payload?.DT ? action.payload?.DT : null
         state.isLoading = false
         state.isError = false
     })

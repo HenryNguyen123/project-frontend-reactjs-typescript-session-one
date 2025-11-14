@@ -21,7 +21,10 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Thêm types cho Vitest */
+    "types": ["vite/client", "vitest/globals"]
   },
   "include": ["src"]
 }

@@ -23,7 +23,7 @@ export interface User {
 export interface UsersState {
     totalRows: number
     totalPages: number
-    users: User[]
+    users: User[] | null
 }
   
 
@@ -54,11 +54,9 @@ const UserComponent: React.FC = () => {
     // const [isListenDelete, setIsListenDelete] = useState<boolean>(false) 
 
     // call edit user
-
     
     const fetchListUsers = async () => {
-        await dispath(fetchAllUsers({limit: currentLimit, page: currentPage}))
-        console.log('list user, ', listUser)
+        await dispath(fetchAllUsers({limit: currentLimit, page: currentPage})).unwrap()
     }
     const handleCreateNewUser = () => {
         setTitleModal('CREATE')
@@ -75,6 +73,9 @@ const UserComponent: React.FC = () => {
         setCurrentPage(e.selected + 1)
     }
 
+    useEffect(() => {
+        setCurentLimit(10)
+    }, [])
     useEffect(() => {
         fetchListUsers()
     }, [currentPage, currentLimit])
@@ -144,7 +145,7 @@ const UserComponent: React.FC = () => {
                         </thead>
                         <tbody>
                             {
-                                listUser && listUser!.users.length > 0 && listUser?.users.map((value, index) => (
+                                listUser && listUser?.users?.length > 0 && listUser.users.map((value, index) => (
                                     <tr key={index}>
                                         <th scope="row">{index + 1 + (currentPage - 1) * currentLimit}</th>
                                         <td>{value.userName}</td>
