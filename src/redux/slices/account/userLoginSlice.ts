@@ -13,7 +13,7 @@ export interface UserData {
   };
 }
 interface UserState {
-    data: UserData | null | [],
+    data: UserData | null ,
     isLogin: boolean,
     isLoading: boolean
 }

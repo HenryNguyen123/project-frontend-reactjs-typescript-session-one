@@ -12,7 +12,7 @@ const NavabarComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
 
     const isLogin: boolean = useSelector((state: RootState) => state.account.isLogin)
-    const data: UserData | null = useSelector((state: RootState) => state.account.data)
+    const data: UserData | null= useSelector((state: RootState) => state.account.data)
     const avatarUrl: string = data?.data?.avatar ?? ""
 
     //logout
