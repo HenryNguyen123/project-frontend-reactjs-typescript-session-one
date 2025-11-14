@@ -29,7 +29,7 @@ const LoginComponent: React.FC = () => {
     const [password, setPassword] = useState<string>('')
     const [rememberUser, setRrememberUser] = useState<boolean>(true)
     
-    const loginUser: UserData = useSelector((state: RootState) => state.login.data)
+    const loginUser: UserData | null = useSelector((state: RootState) => state.login.data)
     // const isLoadingUser = useSelector((state: RootState) => state.login.isLoading)
     // const isErrorUser = useSelector((state: RootState) => state.login.isError)
     
