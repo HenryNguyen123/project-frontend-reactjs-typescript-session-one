@@ -22,7 +22,7 @@ export interface UserResponse {
     totalRows: number
     totalPages: number
     users: User[]
-  } | null
+  } | null 
 }
 
 export interface UsersState {
