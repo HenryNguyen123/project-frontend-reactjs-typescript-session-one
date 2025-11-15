@@ -12,4 +12,5 @@ export default defineConfig({
     setupFiles: './src/test/setupTests.ts',
     globals: true,
   },
+  base: "/project-frontend-reactjs-typescript-session-one/",
 })
