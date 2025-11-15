@@ -6,7 +6,7 @@ const instance = axios.create({
 });
 
 //send cookie up to server
-// instance.defaults.withCredentials= true
+instance.defaults.withCredentials= true
 // Alter defaults after instance has been created
 // instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
