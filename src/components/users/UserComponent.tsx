@@ -55,21 +55,21 @@ const UserComponent: React.FC = () => {
 
     // call edit user
     
-    const fetchListUsers = async () => {
+    const fetchListUsers = async (): Promise<void>=> {
         await dispath(fetchAllUsers({limit: currentLimit, page: currentPage})).unwrap()
     }
-    const handleCreateNewUser = () => {
+    const handleCreateNewUser = (): void => {
         setTitleModal('CREATE')
         setisVistUserModal(true)
     }
 
-    const handleEditUser = (id: number) => {
+    const handleEditUser = (id: number): void => {
         setSelectedUserId(id)
         setTitleModal('EDIT')
         setisVistUserModal(true)
     }
     
-    const handlePageClick = (e: { selected: number }) => {
+    const handlePageClick = (e: { selected: number }): void => {
         setCurrentPage(e.selected + 1)
     }
 
