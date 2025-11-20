@@ -1,7 +1,11 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 
 const HomeComponent: React.FC = () => {
+
+    useEffect(() => {
+        document.title = 'Home';
+    }, [])
     return(
         <>
             <div>

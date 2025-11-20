@@ -75,6 +75,7 @@ const UserComponent: React.FC = () => {
 
     useEffect(() => {
         setCurentLimit(10)
+        document.title = "User Page"
     }, [])
     useEffect(() => {
         fetchListUsers()

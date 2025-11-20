@@ -1,5 +1,5 @@
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import './login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -92,6 +92,10 @@ const LoginComponent: React.FC = () => {
             return;
         }
     }
+    
+    useEffect(() => {
+        document.title = 'Login';
+    }, [])
 
     return(
         <>
