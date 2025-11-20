@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import './navabarCss.scss'
 import { useDispatch, useSelector } from "react-redux"
 import type {RootState, AppDispatch} from '../../redux/store/store'
@@ -9,6 +9,7 @@ import {logoutAuthentication} from '../../redux/slices/auth/logoutSlice'
 
 const NavabarComponent: React.FC = () => {
     const navigate = useNavigate()
+    const locationHook = useLocation()
     const dispatch = useDispatch<AppDispatch>()
 
     const isLogin: boolean = useSelector((state: RootState) => state.account.isLogin)
@@ -41,8 +42,10 @@ const NavabarComponent: React.FC = () => {
 
     const handleLogoutUser = async() => {
         try {
-            const data = await dispatch(logoutAuthentication()).unwrap()
-            if (data.EC === 0) window.location.reload()
+            const pathPage = locationHook.pathname
+            console.log('location page: ', pathPage)
+            const data = await dispatch(logoutAuthentication(pathPage)).unwrap()
+            if (data.EC === 0 && data.DT) return navigate(data.DT.path)
         } catch (error) {
             console.log(error)
         }

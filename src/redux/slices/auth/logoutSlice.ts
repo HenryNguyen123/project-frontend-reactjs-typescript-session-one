@@ -2,11 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie'
 import {logoutApi} from '../../../api/auth/authAPI'
-
+interface ResData {
+    path: string
+}
 export interface DataResponse{
     EM: string
     EC: number
-    DT: []
+    DT: ResData | null
 }
 export interface DataState {
     data: DataResponse | null
@@ -14,12 +16,11 @@ export interface DataState {
     isLoading: boolean
 }
 
-
-export const logoutAuthentication = createAsyncThunk<DataResponse>(
+export const logoutAuthentication = createAsyncThunk<DataResponse, string>(
   'auth/logout',
-  async () => {
+  async (path) => {
     // const response =  await axios.post<DataResponse>(import.meta.env.VITE_REMOVE_JWT_URL)
-    const response =  await logoutApi()
+    const response =  await logoutApi(path)
     return response.data
   }
 )

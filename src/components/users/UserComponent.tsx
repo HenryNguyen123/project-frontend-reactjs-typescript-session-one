@@ -79,6 +79,7 @@ const UserComponent: React.FC = () => {
     }, [])
     useEffect(() => {
         fetchListUsers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, currentLimit])
 
     useEffect(() => {
@@ -89,6 +90,7 @@ const UserComponent: React.FC = () => {
                 setCurrentPage(prev => prev - 1)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [listUser, isDeleteLoading, isDeleteError, isDeleteEC])
 
     if (!isLoading && isError ) {
