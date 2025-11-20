@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://henrynguyen123.github.io/project-frontend-reactjs-typescript-session-one/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
