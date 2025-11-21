@@ -19,7 +19,7 @@ export interface DataState {
 export const logoutAuthentication = createAsyncThunk<DataResponse, string>(
   'auth/logout',
   async (path) => {
-    // const response =  await axios.post<DataResponse>(import.meta.env.VITE_REMOVE_JWT_URL)
+    // const response =  await axios.post<DataResponse>(import.meta.env.VITE_LOGOUT_USER_URL)
     const response =  await logoutApi(path)
     return response.data
   }
