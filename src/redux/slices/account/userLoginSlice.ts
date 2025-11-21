@@ -40,9 +40,9 @@ const AccountSlice = createSlice({
     getLogin(state) {
       try {
         const cookie = Cookies.get('JWT-FE');
-        const cookieServer = Cookies.get('JWT');
+        // const cookieServer = Cookies.get('JWT');
         const getStorage = localStorage.getItem("JWT");
-        console.log('cookie server: ', cookieServer)
+        // console.log('cookie server: ', cookieServer)
 
         if (cookie) {
           state.data = JSON.parse(cookie);

@@ -45,7 +45,10 @@ const NavabarComponent: React.FC = () => {
             const pathPage = locationHook.pathname
             console.log('location page: ', pathPage)
             const data = await dispatch(logoutAuthentication(pathPage)).unwrap()
-            if (data.EC === 0 && data.DT) return navigate(data.DT.path)
+            if (data.EC === 0 && data.DT) {
+                navigate(data.DT.path)
+                return window.location.reload()
+            } 
         } catch (error) {
             console.log(error)
         }
@@ -103,7 +106,8 @@ const NavabarComponent: React.FC = () => {
                             isLogin && (
                                 <li className="nav-item dropdown account-content">
                                     <a className="nav-link dropdown-toggle gradient-custom" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src={avatarUrl ? `${import.meta.env.VITE_SERVER_URL + avatarUrl}` : `${import.meta.env.BASE_URL}` + "/images/users/avatar/avatar_anonymous.png"} alt="avatar" />
+                                        {/* <img src={avatarUrl ? `${import.meta.env.VITE_SERVER_URL + avatarUrl}` : `${import.meta.env.BASE_URL}` + "/images/users/avatar/avatar_anonymous.png"} alt="avatar" /> */}
+                                        <img src={avatarUrl ? `${import.meta.env.VITE_SERVER_URL + avatarUrl}` : "/images/users/avatar/avatar_anonymous.png"} alt="avatar" />
                                         <span>Account</span>
                                     </a>
                                     <ul className="dropdown-menu account-content-item" aria-labelledby="navbarDropdown" >
