@@ -4,13 +4,16 @@
     background-size: 300% 300%;
     animation: gradientShift 10s ease infinite;
     height: 100vh;
+    min-height: 100vh;
     .login-content{ 
         // background-color: black;
         .login-form{
             display: flex;
             justify-content: center;
+            min-height: 100vh;
+            align-items: center;
             form{
-                padding: 40px;
+                padding: 20px;
                 margin: 60px 0px;
                 background-color: #fff;
                 border-radius: 25px;
@@ -129,6 +132,54 @@
         }
     }
 } 
+
+@media (max-width: 768px) {
+    .login-container {
+        height: auto;
+        padding: 20px 0;
+
+        .login-content {
+            .login-form {
+                form {
+                    margin: 20px 10px;
+                    padding: 25px;
+                    min-width: 70%;
+                    .login-title h3 {
+                        font-size: 24px;
+                    }
+
+                    input.form-control {
+                        font-size: 16px;
+                    }
+
+                    .button-login {
+                        padding: 12px 0;
+                        font-size: 16px;
+                    }
+
+                    .check-forget {
+                        .forgot {
+                            // display: flex;
+                            // justify-content: center;
+                            a {
+                                text-align: center;
+                                color: #B63CF6;
+                            }
+                        }
+                    }
+
+                    .abouts {
+                        margin-top: 40px;
+                        button {
+                            padding: 8px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 @keyframes gradientShift {
     0% {

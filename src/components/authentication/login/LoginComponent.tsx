@@ -102,7 +102,7 @@ const LoginComponent: React.FC = () => {
             <div className="login-container">
                 <div className="login-content container ">
                     <div className="login-form row">
-                        <form className="col-4">
+                        <form className="col-10 col-sm-8 col-md-6 col-lg-4">
                             <div className="login-title">
                                 <h3>Login</h3>
                             </div>
@@ -141,7 +141,7 @@ const LoginComponent: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="col">
+                                <div className="col forgot">
                                     <a href="#!">Forgot password?</a>
                                 </div>
                             </div>
