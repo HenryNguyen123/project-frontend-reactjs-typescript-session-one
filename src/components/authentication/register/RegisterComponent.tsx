@@ -29,7 +29,7 @@ const RegisterComponent: React.FC = () => {
 
     const [userName, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [confirmPassword, setConfirmPassword] = useState<string>('')
+    // const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [rememberUser, setRrememberUser] = useState<boolean>(true)
     
     // const loginUser: UserData | null = useSelector((state: RootState) => state.login.data)
@@ -153,7 +153,7 @@ const RegisterComponent: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* <div className="row mb-4 check-forget">
+                            <div className="row mb-4 check-forget">
                                 <div className="col d-flex justify-content-center">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" checked={rememberUser}  onChange={(e: eventHtml) => setRrememberUser(e.target.checked)} id="form2Example31"  />
@@ -164,7 +164,7 @@ const RegisterComponent: React.FC = () => {
                                 <div className="col forgot">
                                     <a href="#!">Forgot password?</a>
                                 </div>
-                            </div> */}
+                            </div>
 
                             <button  type="button" 
                                 data-mdb-button-init data-mdb-ripple-init 
