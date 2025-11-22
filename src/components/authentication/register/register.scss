@@ -1,13 +1,13 @@
-.login-container{
+.register-container{
     // background-color: antiquewhite;
     background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
     background-size: 300% 300%;
     animation: gradientShift 10s ease infinite;
     height: 100vh;
     min-height: 100vh;
-    .login-content{ 
+    .register-content{ 
         // background-color: black;
-        .login-form{
+        .register-form{
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -17,17 +17,35 @@
                 margin: 60px 0px;
                 background-color: #fff;
                 border-radius: 25px;
-                .login-title{
+                .register-title{
                     display: flex;
-                    justify-content: center;
+                    justify-content: space-between;
                     margin-bottom: 10px;
+                    .icon-return{
+                        display: flex;
+                        align-items: center;
+                        span{
+                            color: #1d6cc1;
+                            padding: 1px 10px 1px 0px;
+                            cursor: pointer;
+                            &:hover{
+                                scale: 1.2;
+                            }
+                        }
+                    }
                     h3{
+                        display: flex;
+                        justify-content: space-around;
                         font-weight: 700;
                         text-decoration: none;
                         background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;
                         transition: 0.3s ease;
+                    }
+                    .register-title-item_right{
+                        padding: 1px 10px;
+
                     }
                 }
                 .username{
@@ -80,7 +98,7 @@
                         }
                     }
                 }
-                .button-login {
+                .button-register {
                     width: 100%;
                     background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
                     background-size: 300% 300%;
@@ -120,23 +138,6 @@
                 }
                 .abouts{
                     margin-top: 60px;
-                    p{
-                        span{
-                            cursor: pointer;
-                            padding: 2px 25px;
-                            background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
-                            background-size: 300% 300%;
-                            color: #fff;
-                            border-radius: 5px;
-                            animation: gradientIdle 6s ease infinite;
-                            &:hover{
-                                scale: 1.2;
-                                padding: 3px 30px;
-                                background: linear-gradient(75deg, #fc39ff, #9d54c5, #787bff, #2aecf6);
-                                animation: gradientMove 2s ease infinite;
-                            }
-                        }
-                    }
                     button{
                         &:hover{
                             scale: 1.1;
@@ -151,17 +152,17 @@
 } 
 
 @media (max-width: 768px) {
-    .login-container {
+    .register-container {
         height: auto;
         padding: 20px 0;
 
-        .login-content {
-            .login-form {
+        .register-content {
+            .register-form {
                 form {
                     margin: 20px 10px;
                     padding: 25px;
                     min-width: 70%;
-                    .login-title h3 {
+                    .register-title h3 {
                         font-size: 24px;
                     }
 
@@ -169,7 +170,7 @@
                         font-size: 16px;
                     }
 
-                    .button-login {
+                    .button-register {
                         padding: 12px 0;
                         font-size: 16px;
                     }

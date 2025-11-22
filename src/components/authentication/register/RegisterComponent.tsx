@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react"
-import './login.scss'
+import './register.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faUser, faUnlockKeyhole, faHouse, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -23,12 +23,13 @@ interface valid {
     isPassword: boolean
 }
 
-const LoginComponent: React.FC = () => {
+const RegisterComponent: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
 
     const [userName, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [rememberUser, setRrememberUser] = useState<boolean>(true)
     
     // const loginUser: UserData | null = useSelector((state: RootState) => state.login.data)
@@ -93,8 +94,8 @@ const LoginComponent: React.FC = () => {
         }
     }
     
-    const handleClickRegister = () => {
-        navigate('/register')
+    const handleBackLogin = () => {
+        navigate('/login')
     }
     useEffect(() => {
         document.title = 'Login';
@@ -102,12 +103,14 @@ const LoginComponent: React.FC = () => {
 
     return(
         <>
-            <div className="login-container">
-                <div className="login-content container ">
-                    <div className="login-form row">
+            <div className="register-container">
+                <div className="register-content container ">
+                    <div className="register-form row">
                         <form className="col-10 col-sm-8 col-md-6 col-lg-4">
-                            <div className="login-title">
-                                <h3>Login</h3>
+                            <div className="register-title">
+                                <div className="icon-return"><span onClick={handleBackLogin}><FontAwesomeIcon icon={faArrowLeft} /></span></div>
+                                <h3>Register</h3>
+                                <div className="register-title-item_right"></div>
                             </div>
                             <div data-mdb-input-init className="form-outline mb-4 username">
                                 <label className="form-label" htmlFor="form2Example1">UserName</label>
@@ -136,7 +139,21 @@ const LoginComponent: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="row mb-4 check-forget">
+                            <div data-mdb-input-init className="form-outline mb-4 password">
+                                <label className="form-label" htmlFor="form2Example2">Confirm Password</label>
+                                <div>
+                                    <FontAwesomeIcon icon={faUnlockKeyhole} className="icon"/>
+                                    <input type="password" id="form2Example2" 
+                                        className={objCheckValid.isPassword  ? 'form-control' : 'form-control is-invalid'} 
+                                        placeholder="Type your confirm password"
+                                        value={password}
+                                        onChange={(e: eventHtml) => setPassword(e.target.value)}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* <div className="row mb-4 check-forget">
                                 <div className="col d-flex justify-content-center">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" checked={rememberUser}  onChange={(e: eventHtml) => setRrememberUser(e.target.checked)} id="form2Example31"  />
@@ -147,14 +164,14 @@ const LoginComponent: React.FC = () => {
                                 <div className="col forgot">
                                     <a href="#!">Forgot password?</a>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <button  type="button" 
                                 data-mdb-button-init data-mdb-ripple-init 
-                                className="btn btn-primary btn-block mb-4 button-login "
+                                className="btn btn-primary btn-block mb-4 button-register "
                                 onClick={handleClickLogin}
                             >
-                                    Sign in
+                                    Confirm
                             </button>
 
                             <div className="row mb-4 back-home">
@@ -164,14 +181,11 @@ const LoginComponent: React.FC = () => {
                                         <FontAwesomeIcon icon={faArrowLeft} />
                                         Back to home
                                     </a>
-                                    {/* <div className="form-check">
-                                        <label className="form-check-label" htmlFor="form2Example31"> Back to home </label>
-                                    </div> */}
                                 </div>
                             </div>
     
                             <div className="text-center abouts">
-                                <p>Not a member? <span onClick={() => handleClickRegister()}>Register</span></p>
+                                {/* <p>Not a member? <a href="#!">Register</a></p> */}
                                 <p>or sign up with:</p>
                                 <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
                                     <FontAwesomeIcon icon={faFacebook} size="lg" color="#1877F2"/>
@@ -202,4 +216,4 @@ const LoginComponent: React.FC = () => {
     )
 }
 
-export default LoginComponent
+export default RegisterComponent

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import type {RootState, AppDispatch} from '../redux/store/store'
 import { getLogin } from '../redux/slices/account/userLoginSlice'
 import LoadingComponent from '../components/waitLoading/waitPage/LoadingComponent'
+import RegisterComponent from '../components/authentication/register/RegisterComponent'
 
 const AppRouter: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -37,6 +38,7 @@ const AppRouter: React.FC = () => {
                 </Route>
  
                 <Route path='/login' element={isLogin && dataUser ? <Navigate to="/" replace /> : <LoginComponent />} />
+                <Route path='/register' element={isLogin && dataUser ? <Navigate to="/" replace /> : <RegisterComponent />} />
 
             </Routes>
         </>

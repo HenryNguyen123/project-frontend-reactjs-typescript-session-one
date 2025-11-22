@@ -48,8 +48,8 @@ export const LogoutAuthenSlice = createSlice({
         state.data = action.payload ? action.payload : null
         state.isLoading = false
         state.isLogin = false
-        Cookies.remove('JWT-FE')
-        localStorage.removeItem('JWT')
+        Cookies.remove('USER')
+        localStorage.removeItem('USER')
     })
     .addCase(logoutAuthentication.rejected, (state) => {
         state.isLoading = false

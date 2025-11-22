@@ -31,18 +31,16 @@ const AccountSlice = createSlice({
     setLogin(state, action: PayloadAction<UserData>) {
       state.isLogin = true
       if(state.isLogin && action.payload) {
-          localStorage.setItem('JWT', JSON.stringify(action.payload));
-          Cookies.set('JWT-FE', JSON.stringify(action.payload), { expires: 7 })
+          localStorage.setItem('USER', JSON.stringify(action.payload?.data));
+          Cookies.set('USER', JSON.stringify(action.payload?.data), { expires: 7 })
       } else {
-          localStorage.removeItem('JWT');
+          localStorage.removeItem('USER');
       }
     },
     getLogin(state) {
       try {
-        const cookie = Cookies.get('JWT-FE');
-        // const cookieServer = Cookies.get('JWT');
-        const getStorage = localStorage.getItem("JWT");
-        // console.log('cookie server: ', cookieServer)
+        const cookie = Cookies.get('USER');
+        const getStorage = localStorage.getItem("USER");
 
         if (cookie) {
           state.data = JSON.parse(cookie);
@@ -67,15 +65,15 @@ const AccountSlice = createSlice({
         state.isLogin = false;
         state.isLoading = false;
 
-        Cookies.remove('JWT-FE');
-        localStorage.removeItem('JWT');
+        Cookies.remove('USER');
+        localStorage.removeItem('USER');
       }
     },
     logoutUser(state) {
       try {
-        Cookies.remove('JWT-FE')
-        Cookies.remove('JWT')
-        localStorage.removeItem('JWT')
+        Cookies.remove('USER')
+        Cookies.remove('USER')
+        localStorage.removeItem('USER')
         state.isLogin = false
         state.isLoading = false
         state.data =null
