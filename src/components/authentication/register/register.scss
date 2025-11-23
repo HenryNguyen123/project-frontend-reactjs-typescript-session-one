@@ -3,7 +3,6 @@
     background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
     background-size: 300% 300%;
     animation: gradientShift 10s ease infinite;
-    height: 100vh;
     min-height: 100vh;
     .register-content{ 
         // background-color: black;
@@ -13,10 +12,26 @@
             min-height: 100vh;
             align-items: center;
             form{
+                min-width: 90vh;
                 padding: 20px;
-                margin: 60px 0px;
+                margin: 30px 0px;
                 background-color: #fff;
                 border-radius: 25px;
+                .avatar-title{
+                    display: flex;
+                    align-items: center;
+                }
+                .image-avatar{
+                    input{
+                        display: none;
+                    }
+                    .avatar-image-item{
+                        width: 100px;
+                        height: 100px;
+                        cursor: pointer;
+                        border-radius: 50%;
+                    }
+                }
                 .register-title{
                     display: flex;
                     justify-content: space-between;
