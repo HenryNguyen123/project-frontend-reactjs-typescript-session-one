@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie';
 
 export interface UserData {
-  access_token: string;
+  // access_token: string;
   data: {
     age: number;
     avatar: string;
@@ -12,6 +12,7 @@ export interface UserData {
     userName: string;
   };
 }
+
 interface UserState {
     data: UserData | null ,
     isLogin: boolean,
@@ -31,8 +32,9 @@ const AccountSlice = createSlice({
     setLogin(state, action: PayloadAction<UserData>) {
       state.isLogin = true
       if(state.isLogin && action.payload) {
-          localStorage.setItem('USER', JSON.stringify(action.payload?.data));
-          Cookies.set('USER', JSON.stringify(action.payload?.data), { expires: 7 })
+          const dataLogin: UserData = {data: action.payload?.data}
+          localStorage.setItem('USER', JSON.stringify(dataLogin));
+          Cookies.set('USER', JSON.stringify(dataLogin), { expires: 7 })
       } else {
           localStorage.removeItem('USER');
       }
@@ -43,14 +45,24 @@ const AccountSlice = createSlice({
         const getStorage = localStorage.getItem("USER");
 
         if (cookie) {
-          state.data = JSON.parse(cookie);
+          const getcookie =  JSON.parse(cookie)
+          const dataCookie: UserData = {
+            // access_token: getcookie.access_token,
+            data: getcookie.data
+          } 
+          state.data = dataCookie;
           state.isLogin = true;
           state.isLoading = false;
           return;
         }
 
         if (getStorage) {
-          state.data = JSON.parse(getStorage);
+          const parseStoge =  JSON.parse(getStorage)
+          const dataStoge: UserData = {
+            // access_token: parseStoge.access_token,
+            data: parseStoge.data
+          }
+          state.data = dataStoge;
           state.isLogin = true;
           state.isLoading = false;
           return;

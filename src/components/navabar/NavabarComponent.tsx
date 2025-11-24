@@ -14,7 +14,7 @@ const NavabarComponent: React.FC = () => {
 
     const isLogin: boolean = useSelector((state: RootState) => state.account.isLogin)
     const data: UserData | null= useSelector((state: RootState) => state.account.data)
-    const avatarUrl: string = data?.data?.avatar ?? ""
+    const avatarUrl: string | null = data?.data.avatar ? data.data.avatar  : ""
 
     //logout
     const checkIsLogin: boolean = useSelector((state: RootState) => state.logout.isLogin) 
@@ -34,7 +34,7 @@ const NavabarComponent: React.FC = () => {
     
     const handleCallAuthen = async () => {
         try {
-           dispatch(getLogin())
+           await dispatch(getLogin())
         } catch (error) {
             console.error("Auth check failed:", error)
         }
