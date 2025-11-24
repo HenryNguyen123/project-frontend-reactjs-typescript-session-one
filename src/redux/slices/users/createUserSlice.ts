@@ -38,7 +38,7 @@ export const createAddNewUser = createAsyncThunk<UserResponse, UserData>(
     formData.append('password', data.password)
     if (data.age) formData.append('age', String(data.age))
     if (data.avatar  instanceof File) formData.append('avatar', data.avatar)
-    const response =  await axios.post<UserResponse>(import.meta.env.VITE_Create_USER_URL,formData, {
+    const response =  await axios.post<UserResponse>(import.meta.env.VITE_CREATE_USER_URL,formData, {
                       headers: { "Content-Type": "multipart/form-data" }
                     })
     return response.data

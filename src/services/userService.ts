@@ -17,5 +17,5 @@ interface UserResponse {
 }
 
 export const createAddNewUser = async (firstName: string, lastName: string, email: string, userName: string, password: string, avatar?: File | null, age?: number | string) => {
-    return await axios.post<UserResponse>(import.meta.env.VITE_Create_USER_URL, {firstName: firstName, lastName: lastName, email: email, userName: userName, password: password, avatar: avatar, age: age})
+    return await axios.post<UserResponse>(import.meta.env.VITE_CREATE_USER_URL, {firstName: firstName, lastName: lastName, email: email, userName: userName, password: password, avatar: avatar, age: age})
 }
