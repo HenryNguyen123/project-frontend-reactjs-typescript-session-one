@@ -8,6 +8,7 @@ import updateUserByIdReduce from '../slices/users/updateUserSlice'
 import loginAuthReduce from '../slices/auth/loginSlice'
 import accountReduce from '../slices/account/userLoginSlice'
 import logoutAuthReduce from '../slices/auth/logoutSlice'
+import checkMailForgotPasswordReduce from '../slices/auth/checkMailForgotPassword'
 
 export const store = configureStore({
   reducer: {
@@ -20,11 +21,12 @@ export const store = configureStore({
     getUserById: findUserByIdReduce,
     updateUserById: updateUserByIdReduce,
 
-    // login
+    //login
     login: loginAuthReduce,
     //logout
     logout: logoutAuthReduce,
-
+    //check mail forget password
+    mailForgetPassword: checkMailForgotPasswordReduce,
     // account
     account: accountReduce,
     

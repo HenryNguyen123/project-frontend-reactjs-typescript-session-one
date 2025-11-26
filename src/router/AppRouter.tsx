@@ -9,8 +9,8 @@ import type {RootState, AppDispatch} from '../redux/store/store'
 import { getLogin } from '../redux/slices/account/userLoginSlice'
 import LoadingComponent from '../components/waitLoading/waitPage/LoadingComponent'
 import RegisterComponent from '../components/authentication/register/RegisterComponent'
-import AlertForgotPassword from '../components/authentication/forgot_password/AlertForgotPassword'
 import ForgotPassword from '../components/authentication/forgot_password/ForgotPassword'
+import MailForgotPassword from '../components/authentication/forgot_password/MailForgotPassword'
 
 const AppRouter: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -38,10 +38,10 @@ const AppRouter: React.FC = () => {
                     <Route path='/user' element={<UserComponent/>} />
 
                 </Route>
- 
+                
                 <Route path='/login' element={isLogin && dataUser ? <Navigate to="/" replace /> : <LoginComponent />} />
                 <Route path='/register' element={isLogin && dataUser ? <Navigate to="/" replace /> : <RegisterComponent />} />
-                <Route path='/alert-forget-password' element={isLogin && dataUser ? <Navigate to="/" replace /> : <AlertForgotPassword />} />
+                <Route path='/forget-password/check-mail' element={isLogin && dataUser ? <Navigate to="/" replace /> : <MailForgotPassword />} />
                 <Route path='/client/forget-password' element={isLogin && dataUser ? <Navigate to="/" replace /> : <ForgotPassword />} />
 
             </Routes>

@@ -6,13 +6,17 @@ import './alertForgot.scss'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import type {RootState, AppDispatch} from '../../../redux/store/store'
+import { useDispatch } from "react-redux";
+import { checkMailForgotPassword } from "../../../redux/slices/auth/checkMailForgotPassword";
 
 type eventHtml = React.ChangeEvent<HTMLInputElement>
 interface validType {
     isEmail: boolean,
 } 
-const AlertForgotPassword: React.FC = () => {
+const MailForgotPassword: React.FC = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>();
     
     const [email, setEmail] = useState<string>('')
     
@@ -41,12 +45,23 @@ const AlertForgotPassword: React.FC = () => {
         navigate('/login')
     } 
     //step: click to forget password component
-    const handleToForgetPassword = () => {
+    const handleToForgetPassword = async () => {
         const check = HandleCheckValid();
         if (!check) return
-        navigate('/client/forget-password')
+        try {
+            const data = await dispatch(checkMailForgotPassword({email: email})).unwrap();
+            if (data && data.EC === 0) return navigate('/client/forget-password')
+            if (data && data.EC !== 0) {
+                toast.error(data.EM)    
+                setIsCheckValid({...objCheckValid, isEmail: false})
+                return
+            }
+        } catch (error: unknown) {
+            console.log(error)
+        }
+        // navigate('/client/forget-password')
     }
-    
+     
     //step: enter result input
     const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' || e.keyCode  === 13) {
@@ -127,4 +142,4 @@ const AlertForgotPassword: React.FC = () => {
         </>
     )
 }
-export default AlertForgotPassword
+export default MailForgotPassword

@@ -101,7 +101,7 @@ const LoginComponent: React.FC = () => {
     }
     //step: click forgot password
     const handleForgotPassword = () => {
-        navigate('/alert-forget-password')
+        navigate('/forget-password/check-mail')
     }
     useEffect(() => {
         document.title = 'Login';
