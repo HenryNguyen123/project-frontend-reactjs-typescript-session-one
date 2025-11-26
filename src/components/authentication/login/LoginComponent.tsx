@@ -42,6 +42,7 @@ const LoginComponent: React.FC = () => {
     const [objCheckValid, setObjCheckValid] = useState<valid>(checkIsValid)
 
     const HandleCheckValid = (): boolean => {
+        setObjCheckValid({...checkIsValid})
         if(!userName.trim()) {
             toast.error('Please enter a username.')
             setObjCheckValid({...checkIsValid, isUserName: false})
@@ -67,6 +68,7 @@ const LoginComponent: React.FC = () => {
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' || e.keyCode  === 13) {
+            e.preventDefault()
             handleClickLogin()
         }
     }
@@ -93,8 +95,13 @@ const LoginComponent: React.FC = () => {
         }
     }
     
+    //step: click button register
     const handleClickRegister = () => {
         navigate('/register')
+    }
+    //step: click forgot password
+    const handleForgotPassword = () => {
+        navigate('/alert-forget-password')
     }
     useEffect(() => {
         document.title = 'Login';
@@ -145,7 +152,7 @@ const LoginComponent: React.FC = () => {
                                 </div>
 
                                 <div className="col forgot">
-                                    <a href="#!">Forgot password?</a>
+                                    <a href="/alert-forget-password" onClick={handleForgotPassword}>Forgot password?</a>
                                 </div>
                             </div>
 

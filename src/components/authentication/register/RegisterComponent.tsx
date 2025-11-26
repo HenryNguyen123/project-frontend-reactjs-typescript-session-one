@@ -336,9 +336,9 @@ const RegisterComponent: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="col forgot">
+                                {/* <div className="col forgot">
                                     <a href="#!">Forgot password?</a>
-                                </div>
+                                </div> */}
                             </div>
 
                             <button  type="button" 

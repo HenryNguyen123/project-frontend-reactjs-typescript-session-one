@@ -1,13 +1,13 @@
-.login-container{
+.alert-forgot-container{
     // background-color: antiquewhite;
     background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
     background-size: 300% 300%;
     animation: gradientShift 10s ease infinite;
     height: 100vh;
     min-height: 100vh;
-    .login-content{ 
+    .alert-forgot-content{ 
         // background-color: black;
-        .login-form{
+        .alert-forgot-form{
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -19,10 +19,11 @@
                 border-radius: 25px;
                 min-height: 80vh;
                 min-width: 60vh;
-                .login-title{
+                .alert-forgot-title{
                     display: flex;
                     justify-content: center;
                     margin-bottom: 10px;
+                    margin-top: 5%;
                     h3{
                         font-weight: 700;
                         text-decoration: none;
@@ -33,6 +34,7 @@
                     }
                 }
                 .username{
+                    margin-top: 10%;
                     label{
                         color: #B63CF6;
                     }
@@ -82,7 +84,8 @@
                         }
                     }
                 }
-                .button-login {
+                .button-alert-forgot {
+                    margin-top: 10%;
                     width: 100%;
                     background: linear-gradient(135deg, #08D4DF, #7376ED, #B63CF6, #FB00FF);
                     background-size: 300% 300%;
@@ -153,17 +156,17 @@
 } 
 
 @media (max-width: 768px) {
-    .login-container {
+    .alert-forgot-container {
         height: auto;
         padding: 20px 0;
 
-        .login-content {
-            .login-form {
+        .alert-forgot-content {
+            .alert-forgot-form {
                 form {
                     margin: 20px 10px;
                     padding: 25px;
                     min-width: 70%;
-                    .login-title h3 {
+                    .alert-forgot-title h3 {
                         font-size: 24px;
                     }
 
@@ -171,7 +174,7 @@
                         font-size: 16px;
                     }
 
-                    .button-login {
+                    .button-alert-forgot {
                         padding: 12px 0;
                         font-size: 16px;
                     }
@@ -198,57 +201,6 @@
         }
     }
 }
-
-@media (max-width: 960px) {
-  .login-container {
-    height: auto;
-    padding: 20px 0;
-
-    .login-content {
-      .login-form {
-        form {
-          margin: 20px 10px;
-          padding: 25px;
-          min-width: 70%;
-          min-height: auto;
-
-          .login-title h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-          }
-
-          input.form-control {
-            font-size: 16px;
-          }
-
-          .button-login {
-            padding: 12px 0;
-            font-size: 16px;
-            margin-top: 20px;
-          }
-
-          .check-forget .forgot a {
-            text-align: center;
-            color: #B63CF6;
-          }
-
-          .abouts {
-            margin-top: 40px;
-            p span {
-              padding: 2px 20px;
-              font-size: 14px;
-            }
-            button {
-              padding: 8px !important;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-
 
 
 @keyframes gradientShift {
