@@ -9,6 +9,7 @@ import loginAuthReduce from '../slices/auth/loginSlice'
 import accountReduce from '../slices/account/userLoginSlice'
 import logoutAuthReduce from '../slices/auth/logoutSlice'
 import checkMailForgotPasswordReduce from '../slices/auth/checkMailForgotPassword'
+import resetPasswordReduce from '../slices/auth/resetPasswordSlice'
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,9 @@ export const store = configureStore({
     logout: logoutAuthReduce,
     //check mail forget password
     mailForgetPassword: checkMailForgotPasswordReduce,
+    //reset password
+    resetPassword: resetPasswordReduce,
+
     // account
     account: accountReduce,
     

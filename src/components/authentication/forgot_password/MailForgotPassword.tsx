@@ -6,7 +6,7 @@ import './alertForgot.scss'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import type {RootState, AppDispatch} from '../../../redux/store/store'
+import type {AppDispatch} from '../../../redux/store/store'
 import { useDispatch } from "react-redux";
 import { checkMailForgotPassword } from "../../../redux/slices/auth/checkMailForgotPassword";
 
