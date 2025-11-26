@@ -6,6 +6,9 @@ import './forgetPassword.scss'
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import type {AppDispatch} from '../../../redux/store/store'
+import { useDispatch } from "react-redux";
+import { handelResetPassword } from "../../../redux/slices/auth/resetPasswordSlice";
 
 type eventHtml = React.ChangeEvent<HTMLInputElement>
 interface validType {
@@ -14,6 +17,7 @@ interface validType {
 } 
 const ForgotPassword: React.FC = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
 
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -33,7 +37,7 @@ const ForgotPassword: React.FC = () => {
             return false
         }
         if (password.length < 6 ) {
-            toast.error('Please enter your password min lenght 6 chart.')
+            toast.error('Password must be at least 6 characters long.')
             setIsCheckValid({...objCheckValid, isPassword: false})
             return false
         }
@@ -43,12 +47,12 @@ const ForgotPassword: React.FC = () => {
             return false
         }
         if (confirmPassword.length < 6 ) {
-            toast.error('Please enter your confirm password min lenght 6 chart.')
+            toast.error('Confirm password must be at least 6 characters long.')
             setIsCheckValid({...objCheckValid, isConfirmPassword: false})
             return false
         }
         if (confirmPassword != password ) {
-            toast.error('password and confirm password not match .')
+            toast.error('Password and confirm password do not match.')
             setIsCheckValid({...objCheckValid, isPassword: false})
             setIsCheckValid({...objCheckValid, isConfirmPassword: false})
             return false
@@ -57,9 +61,27 @@ const ForgotPassword: React.FC = () => {
     }
 
     //step: confirm reset password
-    const handleConfirmResetPassword = () => {
+    const handleConfirmResetPassword = async () => {
         const check = HandleCheckValid()
         if (!check) return
+        try {
+            const data = await dispatch(handelResetPassword({password: password})).unwrap()
+            if (data && data.EC === 0) {
+                toast.success(data.EM)
+                setTimeout(() => {
+                    navigate('/login')
+                }, 500)
+            }                
+            if (data && data.EC !== 0) {
+                toast.error(data.EM)
+                setIsCheckValid({...objCheckValid, isPassword: false, isConfirmPassword: false})
+                return
+            }
+        } catch (error: unknown) {
+            console.log(error)
+            toast.error('Password reset failed. Please try again.')
+            setIsCheckValid({...objCheckValid, isPassword: false, isConfirmPassword: false})
+        }
     }
 
     //step: enter result input

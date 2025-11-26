@@ -100,7 +100,8 @@ const LoginComponent: React.FC = () => {
         navigate('/register')
     }
     //step: click forgot password
-    const handleForgotPassword = () => {
+    const handleForgotPassword = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault()
         navigate('/forget-password/check-mail')
     }
     useEffect(() => {
@@ -152,7 +153,7 @@ const LoginComponent: React.FC = () => {
                                 </div>
 
                                 <div className="col forgot">
-                                    <a href="/alert-forget-password" onClick={handleForgotPassword}>Forgot password?</a>
+                                    <a href="" onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleForgotPassword(e)}>Forgot password?</a>
                                 </div>
                             </div>
 

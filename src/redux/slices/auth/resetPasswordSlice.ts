@@ -21,7 +21,7 @@ export interface DataState {
 export const handelResetPassword = createAsyncThunk<DataResponse, DataType>(
   'auth/reset-password',
   async (data) => {
-    const response =  await axios.post<DataResponse>(import.meta.env.VITE_RESET_PASSWORD_URL, {resetPassword: data.password})
+    const response =  await axios.put<DataResponse>(import.meta.env.VITE_RESET_PASSWORD_URL, {resetPassword: data.password})
     return response.data
   }
 )

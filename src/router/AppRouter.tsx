@@ -42,7 +42,7 @@ const AppRouter: React.FC = () => {
                 <Route path='/login' element={isLogin && dataUser ? <Navigate to="/" replace /> : <LoginComponent />} />
                 <Route path='/register' element={isLogin && dataUser ? <Navigate to="/" replace /> : <RegisterComponent />} />
                 <Route path='/forget-password/check-mail' element={isLogin && dataUser ? <Navigate to="/" replace /> : <MailForgotPassword />} />
-                <Route path='/client/forget-password' element={isLogin && dataUser ? <Navigate to="/" replace /> : <ForgotPassword />} />
+                <Route path='/forget-password/reset-password' element={isLogin && dataUser ? <Navigate to="/" replace /> : <ForgotPassword />} />
 
             </Routes>
         </>
