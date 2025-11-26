@@ -50,7 +50,7 @@ const MailForgotPassword: React.FC = () => {
         if (!check) return
         try {
             const data = await dispatch(checkMailForgotPassword({email: email})).unwrap();
-            if (data && data.EC === 0) return navigate('/client/forget-password')
+            if (data && data.EC === 0) return navigate('/forget-password/reset-password')
             if (data && data.EC !== 0) {
                 toast.error(data.EM)    
                 setIsCheckValid({...objCheckValid, isEmail: false})
