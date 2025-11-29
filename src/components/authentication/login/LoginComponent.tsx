@@ -2,16 +2,20 @@
 import React, { useEffect, useState } from "react"
 import './login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGoogle, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
+// import { faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faUser, faUnlockKeyhole, faHouse, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import type { AppDispatch} from '../../../redux/store/store'
 // import type {RootState, AppDispatch} from '../../../redux/store/store'
 // import { useDispatch, useSelector } from "react-redux";
 import { useDispatch  } from "react-redux";
+// login basic
 import {loginAuthentication} from '../../../redux/slices/auth/loginSlice'
 import {setLogin} from '../../../redux/slices//account/userLoginSlice'
 // import type {UserData} from '../../../redux/slices/account/userLoginSlice'
+// login wit oauth2
+import {fetchLoginByOauth2} from '../../../redux/slices/auth/loginOauth2Slice'
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -104,6 +108,17 @@ const LoginComponent: React.FC = () => {
         e.preventDefault()
         navigate('/forget-password/check-mail')
     }
+
+    //step: signIn by OAuth2
+    const handleLoginByOauth = async (title: string) => {
+        try {
+            await dispatch(fetchLoginByOauth2({title})).unwrap();
+        } catch (error: unknown) {
+            console.log(error)
+        }
+    }
+
+
     useEffect(() => {
         document.title = 'Login';
     }, [])
@@ -181,25 +196,25 @@ const LoginComponent: React.FC = () => {
                             <div className="text-center abouts">
                                 <p>Not a member? <span onClick={() => handleClickRegister()}>Register</span></p>
                                 <p>or sign up with:</p>
-                                <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+                                <button  type="button" data-mdb-button-init data-mdb-ripple-init onClick={() => {handleLoginByOauth('facebook')}} className="btn btn-link btn-floating mx-1">
                                     <FontAwesomeIcon icon={faFacebook} size="lg" color="#1877F2"/>
                                 </button>
 
-                                <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+                                <button  type="button" data-mdb-button-init data-mdb-ripple-init onClick={() => {handleLoginByOauth('google')}} className="btn btn-link btn-floating mx-1">
                                     <FontAwesomeIcon icon={faGoogle} size="lg" color="#DB4437"/>
                                 </button>
 
-                                <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+                                {/* <button  type="button" data-mdb-button-init data-mdb-ripple-init onClick={() => {handleLoginByOauth('facebook')}} className="btn btn-link btn-floating mx-1">
                                     <FontAwesomeIcon icon={faTwitter} size="lg" color="#1DA1F2"/>
                                 </button>
 
-                                <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+                                <button  type="button" data-mdb-button-init data-mdb-ripple-init onClick={() => {handleLoginByOauth('facebook')}} className="btn btn-link btn-floating mx-1">
                                     <FontAwesomeIcon icon={faGithub} size="lg" color="#333"/>
-                                </button>
+                                </button> */}
 
-                                <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
+                                {/* <button  type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-link btn-floating mx-1">
                                 <i className="fab fa-github"></i>
-                                </button>
+                                </button> */}
                             </div>
                         </form>
                     </div>
