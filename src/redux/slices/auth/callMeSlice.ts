@@ -3,11 +3,6 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../../setup/axios'
 import type {UserData} from '../../../redux/slices/account/userLoginSlice'
 
-interface LoginData {
-    userName: string,
-    password:string,
-    rememberUser: boolean,
-}
 
 interface DataResponse{
     EM: string
@@ -21,10 +16,10 @@ export interface DataState {
     isError: boolean
 }
 
-export const loginAuthentication = createAsyncThunk<DataResponse, LoginData>(
+export const fetchAccountGetMe = createAsyncThunk<DataResponse>(
   'auth/login',
-  async (data) => {
-    const response =  await axios.post<DataResponse>(import.meta.env.VITE_LOGIN_USER_URL, {userName: data.userName, password: data.password, rememberUser: data.rememberUser})
+  async () => {
+    const response =  await axios.get<DataResponse>(import.meta.env.VITE_CALL_ME_ACCOUNT_URL)
     return response.data
   }
 )
@@ -35,7 +30,7 @@ const initialState: DataState = {
   isError: false
 }
 
-export const LoginAuthenSlice = createSlice({
+export const getMeAccountSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
@@ -43,17 +38,16 @@ export const LoginAuthenSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder
-    .addCase(loginAuthentication.pending, (state) => {
+    .addCase(fetchAccountGetMe.pending, (state) => {
         state.isLoading = true
         state.isError = false
     })
-    .addCase(loginAuthentication.fulfilled, (state, action: PayloadAction<DataResponse>) => {
-      console.log('payload login: ', action.payload)
+    .addCase(fetchAccountGetMe.fulfilled, (state, action: PayloadAction<DataResponse>) => {
         state.data = action.payload ? action.payload : null
         state.isLoading = false
         state.isError = false
     })
-    .addCase(loginAuthentication.rejected, (state) => {
+    .addCase(fetchAccountGetMe.rejected, (state) => {
         state.isLoading = false
         state.isError = true
     })
@@ -62,4 +56,4 @@ export const LoginAuthenSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 
-export default LoginAuthenSlice.reducer
+export default getMeAccountSlice.reducer

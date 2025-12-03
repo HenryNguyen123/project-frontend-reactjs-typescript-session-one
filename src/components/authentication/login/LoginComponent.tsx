@@ -13,6 +13,7 @@ import { useDispatch  } from "react-redux";
 // login basic
 import {loginAuthentication} from '../../../redux/slices/auth/loginSlice'
 import {setLogin} from '../../../redux/slices//account/userLoginSlice'
+import type {dataLogin} from '../../../redux/slices//account/userLoginSlice'
 // import type {UserData} from '../../../redux/slices/account/userLoginSlice'
 // login wit oauth2
 import {fetchLoginByOauth2} from '../../../redux/slices/auth/loginOauth2Slice'
@@ -80,13 +81,17 @@ const LoginComponent: React.FC = () => {
     const handleClickLogin = async () => {
         const check  = HandleCheckValid()
         if (!check) return
-        const data = await dispatch(loginAuthentication({userName, password})).unwrap()
-        const {EM, EC} = data
-        if (EC === 0) {
+        const data = await dispatch(loginAuthentication({userName, password, rememberUser})).unwrap()
+        const {EM, EC, DT} = data
+        if (EC === 0 && DT) {
             toast.success(EM || "Login user  successfully!");
             // const setData = loginUser.DT
+            const setData: dataLogin = {
+                rememberUser: rememberUser,
+                data: DT,
+            }
             if(rememberUser && data && data.DT) {
-                await dispatch(setLogin(data.DT))
+                await dispatch(setLogin(setData))
             }
             navigate('/')
             return;
@@ -112,6 +117,7 @@ const LoginComponent: React.FC = () => {
     //step: signIn by OAuth2
     const handleLoginByOauth = async (title: string) => {
         try {
+            //login by Oauth2
             await dispatch(fetchLoginByOauth2({title})).unwrap();
         } catch (error: unknown) {
             console.log(error)

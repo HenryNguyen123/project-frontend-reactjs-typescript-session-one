@@ -3,7 +3,6 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import Cookies from 'js-cookie';
 
 export interface UserData {
-  // access_token: string;
   data: {
     age: number;
     avatar: string;
@@ -11,6 +10,10 @@ export interface UserData {
     lastName: string;
     userName: string;
   };
+}
+export interface dataLogin {
+  rememberUser: boolean,
+  data: UserData | null
 }
 
 interface UserState {
@@ -29,20 +32,22 @@ const AccountSlice = createSlice({
   name: 'auth/login',
   initialState,
   reducers: {
-    setLogin(state, action: PayloadAction<UserData>) {
+    setLogin(state, action: PayloadAction<dataLogin>) {
+      if (!action.payload || !action.payload.data) return
       state.isLogin = true
       if(state.isLogin && action.payload) {
-          const dataLogin: UserData = {data: action.payload?.data}
-          localStorage.setItem('USER', JSON.stringify(dataLogin));
-          Cookies.set('USER', JSON.stringify(dataLogin), { expires: 7 })
-      } else {
-          localStorage.removeItem('USER');
-      }
+          const dataLogin = {data: action.payload?.data?.data}
+          // localStorage.setItem('USER', JSON.stringify(dataLogin));
+          Cookies.set('USER', JSON.stringify(dataLogin), action.payload.rememberUser ? { expires: 7 } : undefined)
+      } 
+      // else {
+      //     localStorage.removeItem('USER');
+      // }
     },
     getLogin(state) {
       try {
         const cookie = Cookies.get('USER');
-        const getStorage = localStorage.getItem("USER");
+        // const getStorage = localStorage.getItem("USER");
 
         if (cookie) {
           const getcookie =  JSON.parse(cookie)
@@ -56,17 +61,17 @@ const AccountSlice = createSlice({
           return;
         }
 
-        if (getStorage) {
-          const parseStoge =  JSON.parse(getStorage)
-          const dataStoge: UserData = {
-            // access_token: parseStoge.access_token,
-            data: parseStoge.data
-          }
-          state.data = dataStoge;
-          state.isLogin = true;
-          state.isLoading = false;
-          return;
-        }
+        // if (getStorage) {
+        //   const parseStoge =  JSON.parse(getStorage)
+        //   const dataStoge: UserData = {
+        //     // access_token: parseStoge.access_token,
+        //     data: parseStoge.data
+        //   }
+        //   state.data = dataStoge;
+        //   state.isLogin = true;
+        //   state.isLoading = false;
+        //   return;
+        // }
 
         state.data = null;
         state.isLogin = false;
@@ -78,14 +83,14 @@ const AccountSlice = createSlice({
         state.isLoading = false;
 
         Cookies.remove('USER');
-        localStorage.removeItem('USER');
+        // localStorage.removeItem('USER');
       }
     },
     logoutUser(state) {
       try {
         Cookies.remove('USER')
         Cookies.remove('USER')
-        localStorage.removeItem('USER')
+        // localStorage.removeItem('USER')
         state.isLogin = false
         state.isLoading = false
         state.data =null

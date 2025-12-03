@@ -11,6 +11,7 @@ import LoadingComponent from '../components/waitLoading/waitPage/LoadingComponen
 import RegisterComponent from '../components/authentication/register/RegisterComponent'
 import ForgotPassword from '../components/authentication/forgot_password/ForgotPassword'
 import MailForgotPassword from '../components/authentication/forgot_password/MailForgotPassword'
+import CallBackMe from '../components/callback/me/CallBackMe'
 
 const AppRouter: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -36,6 +37,9 @@ const AppRouter: React.FC = () => {
                 <Route path='/' element={<LayoutComponent/>} >
                     <Route index element={<HomeComponent/>}/>
                     <Route path='/user' element={<UserComponent/>} />
+
+
+                    <Route path='/callback/me' element={<CallBackMe/>} />
 
                 </Route>
                 

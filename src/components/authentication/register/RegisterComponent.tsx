@@ -45,7 +45,7 @@ const RegisterComponent: React.FC = () => {
     const [avatar, setAvatar] = useState<File | null>(null)
     // const [isChangePassword, setIsChangePassword] = useState<boolean>(false)
 
-    const [rememberUser, setRrememberUser] = useState<boolean>(true)
+    // const [rememberUser, setRrememberUser] = useState<boolean>(true)
     
     // const loginUser: UserData | null = useSelector((state: RootState) => state.login.data)
     // const isLoadingUser = useSelector((state: RootState) => state.login.isLoading)
@@ -160,6 +160,7 @@ const RegisterComponent: React.FC = () => {
             }
             if (EC === 0) {
                 toast.success(EM || "Create new user successfully!");
+                navigate('/login')
                 return;
             }
 
@@ -329,12 +330,12 @@ const RegisterComponent: React.FC = () => {
                             </div>
 
                             <div className="row mb-4 check-forget">
-                                <div className="col d-flex justify-content-center">
+                                {/* <div className="col d-flex justify-content-center">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" checked={rememberUser}  onChange={(e: eventHtml) => setRrememberUser(e.target.checked)} id="form2Example31"  />
                                         <label className="form-check-label" htmlFor="form2Example31"> Remember me </label>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* <div className="col forgot">
                                     <a href="#!">Forgot password?</a>

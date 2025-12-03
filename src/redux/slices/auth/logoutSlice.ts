@@ -49,7 +49,7 @@ export const LogoutAuthenSlice = createSlice({
         state.isLoading = false
         state.isLogin = false
         Cookies.remove('USER')
-        localStorage.removeItem('USER')
+        // localStorage.removeItem('USER')
     })
     .addCase(logoutAuthentication.rejected, (state) => {
         state.isLoading = false

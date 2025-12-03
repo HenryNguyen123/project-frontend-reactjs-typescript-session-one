@@ -11,6 +11,7 @@ import logoutAuthReduce from '../slices/auth/logoutSlice'
 import checkMailForgotPasswordReduce from '../slices/auth/checkMailForgotPassword'
 import resetPasswordReduce from '../slices/auth/resetPasswordSlice'
 import loginOauth2Reduce from '../slices/auth/loginOauth2Slice'
+import getMeAccountReduce from '../slices/auth/callMeSlice'
 
 export const store = configureStore({
   reducer: {
@@ -35,6 +36,7 @@ export const store = configureStore({
     loginOauth: loginOauth2Reduce,
     // account
     account: accountReduce,
+    getMe: getMeAccountReduce,
     
   },
 })

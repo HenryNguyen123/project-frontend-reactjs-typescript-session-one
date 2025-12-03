@@ -43,7 +43,6 @@ const NavabarComponent: React.FC = () => {
     const handleLogoutUser = async() => {
         try {
             const pathPage = locationHook.pathname
-            console.log('location page: ', pathPage)
             const data = await dispatch(logoutAuthentication(pathPage)).unwrap()
             if (data.EC === 0 && data.DT) {
                 navigate(data.DT.path)
@@ -54,12 +53,13 @@ const NavabarComponent: React.FC = () => {
         }
     }
 
+
     useEffect(() => {
         handleCallAuthen()
     }, [])
     
     useEffect(() => {
-        
+        console.log('islogin')
     }, [checkIsLogin])
     
     return(
